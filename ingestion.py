@@ -1,17 +1,10 @@
 import os
 
 from langchain.document_loaders import ReadTheDocsLoader
-from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Pinecone
-import pinecone
-
-pinecone.init(
-    api_key=os.environ["PINECONE_API_KEY"],
-    environment=os.environ["PINECONE_ENVIRONMENT_REGION"],
-)
-INDEX_NAME = "langchain-doc-index"
-
+from langchain.embeddings import HuggingFaceInstructEmbeddings
+from langchain.vectorstores import Chroma
+from constants import CHROMA_SETTINGS, PERSIST_DIRECTORY
 
 def ingest_docs():
     loader = ReadTheDocsLoader("langchain-docs/python.langchain.com/en/latest")
@@ -26,10 +19,19 @@ def ingest_docs():
         new_url = new_url.replace("langchain-docs", "https:/")
         doc.metadata.update({"source": new_url})
 
-    embeddings = OpenAIEmbeddings()
-    print(f"Going to add {len(documents)} to Pinecone")
-    Pinecone.from_documents(documents, embeddings, index_name=INDEX_NAME)
-    print("****Loading to vectorestore done ***")
+    # Create embeddings
+    embeddings = HuggingFaceInstructEmbeddings(
+        model_name="hkunlp/instructor-xl", model_kwargs={"device": "cuda"}
+    )
+
+    db = Chroma.from_documents(
+        documents,
+        embeddings,
+        persist_directory=PERSIST_DIRECTORY,
+        client_settings=CHROMA_SETTINGS,
+    )
+    db.persist()
+    db = None
 
 
 if __name__ == "__main__":
