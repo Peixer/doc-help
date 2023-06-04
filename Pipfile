@@ -21,7 +21,7 @@ tqdm = "*"
 chromadb = "0.3.22"
 llama-cpp-python = "0.1.48"
 urllib3="1.26.6"
-pdfminer.six="20221105"
+einops = "*"
 InstructorEmbedding = "*"
 sentence-transformers = "*"
 faiss-cpu = "*"
@@ -31,10 +31,11 @@ protobuf="3.20.0"
 accelerate = "*"
 bitsandbytes = "*"
 click = "*"
+pypdf = "*"
+pdfminer = {six = "20221105"}
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
 python_full_version = "3.11.0"
-
