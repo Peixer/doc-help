@@ -5,10 +5,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.vectorstores import Chroma
 from constants import CHROMA_SETTINGS, PERSIST_DIRECTORY
+from langchain.document_loaders import PyPDFLoader
+
 
 def ingest_docs():
-    loader = ReadTheDocsLoader("langchain-docs/python.langchain.com/en/latest")
-    raw_documents = loader.load()
+    # loader = ReadTheDocsLoader("langchain-docs/python.langchain.com/en/latest/getting_started")
+    # raw_documents = loader.load()
+
+    loader = PyPDFLoader("./data.pdf")
+    raw_documents = loader.load_and_split()
     print(f"loaded {len(raw_documents)} documents")
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=400, chunk_overlap=50, separators=["\n\n", "\n", " ", ""]
@@ -21,7 +26,7 @@ def ingest_docs():
 
     # Create embeddings
     embeddings = HuggingFaceInstructEmbeddings(
-        model_name="hkunlp/instructor-xl", model_kwargs={"device": "cuda"}
+        model_name="hkunlp/instructor-xl", model_kwargs={"device": "cpu"}
     )
 
     db = Chroma.from_documents(
