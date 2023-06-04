@@ -64,3 +64,19 @@ To run tests, run the following command
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.udemy.com/course/langchain/?referralCode=D981B8213164A3EA91AC)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eden-marco/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://www.udemy.com/user/eden-marco/)
+
+
+
+## Updated Run Locally
+
+- apt update
+- git clone X
+- apt install pipenv
+- INSTALL PYENV
+- pyenv install 3.11.0
+    - sudo apt remove pipenv
+    - pip3 install pipenv
+    - python3 -m pipenv shell
+    - pipenv install
+- apt install nvidia-cudnn
+- pipenv install torch
