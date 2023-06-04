@@ -72,7 +72,7 @@ To run tests, run the following command
 - apt update
 - git clone X
 - apt install pipenv
-- INSTALL PYENV
+- [INSTALL PYENV](https://brain2life.hashnode.dev/how-to-install-pyenv-python-version-manager-on-ubuntu-2004)
 - pyenv install 3.11.0
     - sudo apt remove pipenv
     - pip3 install pipenv
