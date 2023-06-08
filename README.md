@@ -67,7 +67,7 @@ To run tests, run the following command
 
 
 
-## Updated Run Locally
+## Updated SetUp
 
 - apt update
 - git clone X
@@ -80,3 +80,9 @@ To run tests, run the following command
     - pipenv install
 - apt install nvidia-cudnn
 - pipenv install torch
+
+## Updated Run Locally
+- pipenv run python ingestion.py (If needed)
+- pipenv run streamlit run main.py 
+- sudo ufw allow 8501
+- sudo ufw allow 22
